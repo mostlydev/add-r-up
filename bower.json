@@ -1,0 +1,22 @@
+{
+  "name": "addRUp",
+  "description": "Hold&apos;em prize calculator",
+  "main": "",
+  "authors": [
+    "MostlyDev.com"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "www/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "add-to-homescreen": "^3.2.3"
+  }
+}

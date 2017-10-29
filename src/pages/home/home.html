@@ -1,14 +1,118 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
+  <ion-navbar color="dark">
+    <ion-title color-primary>
+      <img src="assets/imgs/logo.png" style="display:inline-block" height="40px" class="logo" />
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content class=".divider-inside-top">
+  <ion-list *ngIf="loaded">
+    <ion-list-header color="dark" padding-top>
+      {{ 'COUNT' | translate }}
+    </ion-list-header>
+    <ion-item>
+      <h3 item-left> {{ 'POT' | translate }}</h3>
+      <div item-right>
+        <ion-input text-right large pattern="\d*" type="number" [(ngModel)]="pot" (change)="onChange()" (keydown)="onKey($event)"
+          background="light"></ion-input>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-segment class="roundTo" [(ngModel)]="billSize" (click)="onChange()">
+        <ion-segment-button value="5">5</ion-segment-button>
+        <ion-segment-button value="10">10</ion-segment-button>
+        <ion-segment-button value="20">20</ion-segment-button>
+      </ion-segment>
+    </ion-item>
+    <ion-list-header color="dark">
+      {{ 'PRIZES' | translate }}
+    </ion-list-header>
+    <ion-item>
+      <ion-label>
+        {{ 'FIRST' | translate }}
+      </ion-label>
+      <span item-right>
+        {{prizes[0] | currency:'USD':true:'1.0-0' }}
+      </span>
+    </ion-item>
+    <ion-item>
+      {{ 'SECOND' | translate }}
+      <span item-right>
+        {{prizes[1] | currency:'USD':true:'1.0-0'}}
+      </span>
+    </ion-item>
+    <ion-item *ngIf="prizes[2] > 0">
+      {{ 'THIRD' | translate }}
+      <span item-right>
+        {{prizes[2] | currency:'USD':true:'1.0-0'}}
+      </span>
+    </ion-item>
+    <ion-item *ngIf="prizes[3] > 0">
+      {{ 'FOURTH' | translate }}
+      <span item-right>
+        {{prizes[3] | currency:'USD':true:'1.0-0'}}
+      </span>
+    </ion-item>
+    <ion-item *ngIf="prizes[4] > 0">
+      {{ 'FIFTH' | translate }}
+      <span item-right>
+        {{prizes[4] | currency:'USD':true:'1.0-0'}}
+      </span>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header color="dark" padding-top>
+      <h3>Sample Rules</h3>
+    </ion-list-header>
+    <ion-item text-wrap>
+      <ul class="rules">
+        <li>
+          Table buys in for $20, players are issued 550 in chips (3x 100, 6x 25, & 10x 10). Blinds start at 10/20.</li>
+        <li>
+          Players are allowed unlimited re-buys until "last hand" for $20 and 550 in chips. You cannot re-buy if you haven't been completely
+          knocked out!
+        </li>
+        <li>
+          Timer starts at 45 minutes, after which blinds double to 20/40.
+        </li>
+        <li>
+          45 minutes later, blinds increase again to 30/60, and the timer is decreased to 30 minutes.
+        </li>
+        <li>
+          Deal is allowed to go around the table one more, independent of time. This is the "last hand" for re-buys.
+        </li>
+        <li>
+          At the end of the "last hand", any player can top-up for $20 and receive 450 in chips.
+        </li>
+        <li>
+          A player knocked out during the "last hand" can re-buy and top-up for $40, and get a total of 1,000 in chips.
+        </li>
+        <li>
+          Blinds continue to increase every 30 minutes: 30/60, 40/80, 50/100, with no more re-buys, until someone wins or a deal is
+          made.
+        </li>
+        <li>
+          Blinds can optionally be frozen at 50/100 until there are three players left, 100/200 for the last three, and 200/400 for
+          the last two.
+        </li>
+      </ul>
+
+      <br>
+      <br> Want to help translate?
+      <a href="mailto:wojtek@grabski.ca?Subject=Translation for add'r'up">Send me an email</a> with everything you see here, and the language it represents. I'll add it to the app with thanks!
+
+    </ion-item>
+
+  </ion-list>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="dark">
+    <ion-label color="light">
+      &copy; 2017 -
+      <a href="https://mostlydev.com">https://mostlydev.com</a>
+    </ion-label>
+  </ion-toolbar>
+</ion-footer>

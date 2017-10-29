@@ -1,6 +1,8 @@
 {
-  "name": "pokerBlinds",
+  "name": "addRUp",
   "app_id": "33cac143",
   "type": "ionic-angular",
-  "integrations": {}
+  "integrations": {
+    "cordova": {}
+  }
 }
