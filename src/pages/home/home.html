@@ -18,47 +18,70 @@
           background="light"></ion-input>
       </div>
     </ion-item>
-    <ion-item>
-      <ion-segment class="roundTo" [(ngModel)]="billSize" (click)="onChange()">
-        <ion-segment-button value="5">5</ion-segment-button>
-        <ion-segment-button value="10">10</ion-segment-button>
-        <ion-segment-button value="20">20</ion-segment-button>
-      </ion-segment>
-    </ion-item>
+
     <ion-list-header color="dark">
       {{ 'PRIZES' | translate }}
     </ion-list-header>
     <ion-item>
       <ion-label>
-        {{ 'FIRST' | translate }}
+        {{ 'FIRST' | translate }} ({{percents[0]}})
       </ion-label>
       <span item-right>
         {{prizes[0] | currency:'USD':true:'1.0-0' }}
       </span>
     </ion-item>
     <ion-item>
-      {{ 'SECOND' | translate }}
-      <span item-right>
+      {{ 'SECOND' | translate }} ({{percents[1]}})
+      <span item-right *ngIf="prizes[1] > 0; else noPrize">
         {{prizes[1] | currency:'USD':true:'1.0-0'}}
       </span>
     </ion-item>
-    <ion-item *ngIf="prizes[2] > 0">
-      {{ 'THIRD' | translate }}
-      <span item-right>
+    <ion-item>
+      {{ 'THIRD' | translate }} ({{percents[2]}})
+      <span item-right *ngIf="prizes[2] > 0; else noPrize">
         {{prizes[2] | currency:'USD':true:'1.0-0'}}
       </span>
     </ion-item>
-    <ion-item *ngIf="prizes[3] > 0">
-      {{ 'FOURTH' | translate }}
-      <span item-right>
+    <ion-item>
+      {{ 'FOURTH' | translate }} ({{percents[3]}})
+      <span item-right *ngIf="prizes[3] > 0; else noPrize">
         {{prizes[3] | currency:'USD':true:'1.0-0'}}
       </span>
     </ion-item>
     <ion-item *ngIf="prizes[4] > 0">
-      {{ 'FIFTH' | translate }}
+      {{ 'FIFTH' | translate }} ({{percents[4]}})
       <span item-right>
         {{prizes[4] | currency:'USD':true:'1.0-0'}}
       </span>
+    </ion-item>
+    <ng-template #noPrize>
+      <span class="noPrize" item-right>
+        <ion-icon name="beer"></ion-icon>
+      </span>
+    </ng-template>
+  </ion-list>
+
+  <ion-list>
+    <ion-item-divider>
+      {{ 'BILL_SIZE' | translate }}
+    </ion-item-divider>
+    <ion-item>
+
+      <ion-segment [(ngModel)]="smallestBill" (click)="onChange()">
+        <ion-segment-button value="5">5</ion-segment-button>
+        <ion-segment-button value="10">10</ion-segment-button>
+        <ion-segment-button value="20">20</ion-segment-button>
+      </ion-segment>
+    </ion-item>
+    <ion-item-divider>
+      {{ 'MINIMUM_PRIZE' | translate }}
+    </ion-item-divider>
+    <ion-item>
+      <ion-segment [(ngModel)]="smallestPrize" (click)="onChange()">
+        <ion-segment-button value="5">5</ion-segment-button>
+        <ion-segment-button value="10">10</ion-segment-button>
+        <ion-segment-button value="20">20</ion-segment-button>
+      </ion-segment>
     </ion-item>
   </ion-list>
 

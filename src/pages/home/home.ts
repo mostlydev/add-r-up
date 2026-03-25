@@ -13,9 +13,10 @@ import { Storage } from '@ionic/storage';
 export class HomePage {
   pot = 400;
   prizes = [0, 0, 0, 0, 0];
-  percents = [55, 27.5, 10.5, 5, 2];
+  percents = [0, 27.5, 10.5, 5, 2];
   loaded: boolean = false;
-  billSize: string = "10";
+  smallestBill: string = "10";
+  smallestPrize: string = "20";
 
   languages = availableLanguages;
   selectedLanguage = sysOptions.systemLanguage;
@@ -31,7 +32,9 @@ export class HomePage {
     translate: TranslateService,
     private storage: Storage
   ) {
-
+    this.percents[0] = 100 - (this.percents.reduce(function (a, b) {
+      return a + b;
+    }, 0));
     this.translate = translate;
 
     platform.ready().then(() => {
@@ -63,7 +66,8 @@ export class HomePage {
 
   saveDefaults() {
     this.storage.set('pot', this.pot);
-    this.storage.set('billSize', this.billSize);
+    this.storage.set('smallestBill', this.smallestBill);
+    this.storage.set('smallestPrize', this.smallestPrize);
   }
 
   loadDefaults() {
@@ -73,9 +77,15 @@ export class HomePage {
         this.recalculate();
       }
     });
-    this.storage.get('billSize').then((billSize) => {
-      if (billSize) {
-        this.billSize = billSize;
+    this.storage.get('smallestBill').then((smallestBill) => {
+      if (smallestBill) {
+        this.smallestBill = smallestBill;
+        this.recalculate();
+      }
+    });
+    this.storage.get('smallestPrize').then((smallestPrize) => {
+      if (smallestPrize) {
+        this.smallestPrize = smallestPrize;
         this.recalculate();
       }
     });
@@ -104,10 +114,11 @@ export class HomePage {
   }
 
   recalculate() {
-    const floor = parseInt(this.billSize, 10);
+    const smallestBill = parseInt(this.smallestBill, 10);
+    const minPrize = parseInt(this.smallestPrize, 10);
     for (var _i = 0; _i < this.percents.length; _i++) {
-      this.prizes[_i] = this.floorTo(this.pot * this.percents[_i] / 100, floor);
-      if (this.prizes[_i] < floor) this.prizes[_i] = 0;
+      this.prizes[_i] = this.floorTo(this.pot * this.percents[_i] / 100, smallestBill);
+      if (this.prizes[_i] < minPrize) this.prizes[_i] = 0;
     }
 
     this.prizes[0] = this.prizes[0] + (this.pot - this.sumArray(this.prizes));

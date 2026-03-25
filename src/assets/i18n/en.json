@@ -6,5 +6,7 @@
   "SECOND": "2nd",
   "THIRD": "3rd",
   "FOURTH": "4th",
-  "FIFTH": "5th"
+  "FIFTH": "5th",
+  "BILL_SIZE": "Smallest bill",
+  "MINIMUM_PRIZE": "Smallest prize"
 }
