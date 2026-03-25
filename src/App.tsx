@@ -53,7 +53,10 @@ export default function App() {
               type="number"
               inputMode="numeric"
               value={pot}
-              onChange={e => setPot(Number(e.target.value))}
+              onChange={e => {
+                const v = Number(e.target.value)
+                if (isFinite(v)) setPot(v)
+              }}
             />
           </div>
         </div>

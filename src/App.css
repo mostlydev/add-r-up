@@ -71,6 +71,8 @@
 
 /* Pot input */
 .pot-input {
+  -webkit-appearance: none;
+  appearance: none;
   background: rgba(255,255,255,0.12);
   border: 1px solid rgba(255,255,255,0.15);
   border-radius: 4px;
@@ -127,8 +129,16 @@
 .footer {
   background: rgba(0,0,0,0.7);
   padding: 10px 16px;
+  padding-bottom: calc(10px + env(safe-area-inset-bottom));
   font-size: 0.78rem;
   color: #777;
   text-align: center;
 }
 .footer a { color: rgba(100,180,255,0.7); }
+
+.pot-input::-webkit-inner-spin-button,
+.pot-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.pot-input[type=number] { -moz-appearance: textfield; }
