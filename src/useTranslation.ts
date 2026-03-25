@@ -12,12 +12,19 @@ export const AVAILABLE_LANGUAGES: { code: LangCode; name: string }[] = [
 ]
 
 function detectLanguage(): LangCode {
+  const stored = localStorage.getItem('lang')
+  if (stored === 'en' || stored === 'pl') return stored
   const browser = navigator.language?.substring(0, 2).toLowerCase()
   return AVAILABLE_LANGUAGES.some(l => l.code === browser) ? (browser as LangCode) : 'en'
 }
 
 export function useTranslation() {
-  const [lang, setLang] = useState<LangCode>(detectLanguage)
+  const [lang, setLangRaw] = useState<LangCode>(detectLanguage)
+
+  const setLang = useCallback((code: LangCode) => {
+    localStorage.setItem('lang', code)
+    setLangRaw(code)
+  }, [])
 
   const t = useCallback(
     (key: string) => locales[lang][key] ?? key,
