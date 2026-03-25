@@ -42,4 +42,11 @@ describe('calculate', () => {
   it('returns 5 prizes', () => {
     expect(calculate(400, 10, 20).length).toBe(5)
   })
+
+  it('prizes sum to pot even when some are zeroed', () => {
+    // pot=100: 3rd (10.5%=10.5→floor10=10, below 20→0), 4th/5th also 0
+    // remainder goes to 1st place, so total must still equal 100
+    const prizes = calculate(100, 10, 20)
+    expect(prizes.reduce((a, b) => a + b, 0)).toBe(100)
+  })
 })
