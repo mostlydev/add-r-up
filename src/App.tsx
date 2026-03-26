@@ -27,14 +27,17 @@ export default function App() {
     document.documentElement.setAttribute('data-font-step', String(step))
     return step
   }
+  const getFontCookie = () => parseInt(document.cookie.match(/fontStep=(\d)/)?.[1] ?? '0', 10)
+  const setFontCookie = (v: number) => { document.cookie = `fontStep=${v};max-age=31536000;path=/` }
+
   const [fontStep, setFontStep] = useState(() => {
-    const s = parseInt(localStorage.getItem('fontStep') ?? '0', 10)
+    const s = getFontCookie()
     return applyFontStep(isNaN(s) ? 0 : Math.min(Math.max(s, 0), FONT_STEPS - 1))
   })
   const changeFontStep = (delta: number) => {
     setFontStep(s => {
       const next = Math.min(Math.max(s + delta, 0), FONT_STEPS - 1)
-      localStorage.setItem('fontStep', String(next))
+      setFontCookie(next)
       return applyFontStep(next)
     })
   }
