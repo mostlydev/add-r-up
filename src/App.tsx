@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { calculate, PERCENTS } from './calculator'
+import { calculate } from './calculator'
 import { useTranslation } from './useTranslation'
 import { useSettings, BillSize, MinPrize } from './useSettings'
 import './App.css'
@@ -26,7 +26,7 @@ export default function App() {
   return (
     <div className="app">
       <nav className="navbar">
-        <img src="assets/imgs/logo.png" alt="Add'r'Up" />
+        <img src="/assets/imgs/logo.png" alt="Add'r'Up" />
       </nav>
 
       <div className="content">
@@ -66,9 +66,7 @@ export default function App() {
           <div className="section-header">{t('PRIZES')}</div>
           {PLACE_KEYS.map((key, i) => (
             <div className="row" key={key}>
-              <span className="row-label">
-                {t(key)} <small>({PERCENTS[i]}%)</small>
-              </span>
+              <span className="row-label">{t(key)}</span>
               {prizes[i] > 0
                 ? <span className="row-value">{fmt.format(prizes[i])}</span>
                 : <span className="row-empty">🍺</span>
