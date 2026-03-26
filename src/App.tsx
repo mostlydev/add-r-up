@@ -15,8 +15,11 @@ const fmt = new Intl.NumberFormat('en-US', {
 })
 
 export default function App() {
-  const { t, lang, setLang, languages } = useTranslation()
+  const { t } = useTranslation()
   const { pot, setPot, smallestBill, setSmallestBill, minPrize, setMinPrize } = useSettings()
+
+  // Rules sheet
+  const [rulesOpen, setRulesOpen] = useState(false)
 
   // Numpad
   const [numpadOpen, setNumpadOpen] = useState(false)
@@ -134,37 +137,29 @@ export default function App() {
           </div>
         </div>
 
-        {/* Sample Rules */}
-        <div className="section">
-          <div className="section-header">{t('SAMPLE_RULES')}</div>
-          <ul className="rules-list">
-            {(['RULE_1','RULE_2','RULE_3','RULE_4','RULE_5','RULE_6','RULE_7','RULE_8','RULE_9'] as const).map(k => (
-              <li key={k}>{t(k)}</li>
-            ))}
-          </ul>
-          <p className="contact">
-            {t('CONTACT_PRE')}{' '}
-            <a href="mailto:wojtek@grabski.ca?Subject=Translation for add'r'up">{t('CONTACT_LINK')}</a>{' '}
-            {t('CONTACT_POST')}
-          </p>
-        </div>
-      </div>
-
-      <div className="lang-picker">
-        {languages.map(l => (
-          <button
-            key={l.code}
-            className={`lang-btn${lang === l.code ? ' active' : ''}`}
-            onClick={() => setLang(l.code)}
-          >
-            {l.name}
-          </button>
-        ))}
+        {/* Rules tab */}
+        <button className="rules-tab" onClick={() => setRulesOpen(true)}>
+          {t('SAMPLE_RULES')} <span className="rules-tab-arrow">↑</span>
+        </button>
       </div>
 
       <footer className="footer">
-        &copy; 2017 – <a href="https://mostlydev.com">https://mostlydev.com</a>
+        &copy; 2017 – {new Date().getFullYear()} <a href="https://mostlydev.com">mostlydev.com</a>
       </footer>
+
+      {/* Rules sheet */}
+      <div className={`rules-overlay${rulesOpen ? ' open' : ''}`} onClick={() => setRulesOpen(false)} />
+      <div className={`rules-sheet${rulesOpen ? ' open' : ''}`}>
+        <div className="rules-sheet-header">
+          <span>{t('SAMPLE_RULES')}</span>
+          <button className="rules-close" onClick={() => setRulesOpen(false)}>✕</button>
+        </div>
+        <ul className="rules-list">
+          {(['RULE_1','RULE_2','RULE_3','RULE_4','RULE_5','RULE_6','RULE_7','RULE_8','RULE_9'] as const).map(k => (
+            <li key={k}>{t(k)}</li>
+          ))}
+        </ul>
+      </div>
 
       {numpadOpen && (
         <div className="numpad-overlay" onClick={() => setNumpadOpen(false)}>
