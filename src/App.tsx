@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useRef } from 'react'
 import { calculate } from './calculator'
 import { useTranslation } from './useTranslation'
 import { useSettings, BillSize, MinPrize } from './useSettings'
@@ -18,6 +18,23 @@ export default function App() {
   const { t, lang, setLang, languages } = useTranslation()
   const { pot, setPot, smallestBill, setSmallestBill, minPrize, setMinPrize } = useSettings()
 
+  // Stepper hold-to-repeat
+  const holdRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const potRef = useRef(pot)
+  potRef.current = pot
+
+  const startHold = (delta: number) => {
+    potRef.current = Math.max(0, potRef.current + delta)
+    setPot(potRef.current)
+    holdRef.current = setInterval(() => {
+      potRef.current = Math.max(0, potRef.current + delta)
+      setPot(potRef.current)
+    }, 120)
+  }
+  const stopHold = () => {
+    if (holdRef.current) { clearInterval(holdRef.current); holdRef.current = null }
+  }
+
   const prizes = useMemo(
     () => calculate(pot, Number(smallestBill), Number(minPrize)),
     [pot, smallestBill, minPrize]
@@ -33,18 +50,20 @@ export default function App() {
         {/* Pot size */}
         <div className="section">
           <div className="section-header">{t('COUNT')}</div>
-          <div className="row">
-            <span className="row-label">{t('POT')}</span>
-            <input
-              className="pot-input"
-              type="number"
-              inputMode="numeric"
-              value={pot}
-              onChange={e => {
-                const v = Number(e.target.value)
-                if (isFinite(v)) setPot(v)
-              }}
-            />
+          <div className="stepper">
+            <button
+              className="stepper-btn"
+              onPointerDown={() => startHold(-Number(smallestBill))}
+              onPointerUp={stopHold}
+              onPointerLeave={stopHold}
+            >−</button>
+            <span className="stepper-value">{fmt.format(pot)}</span>
+            <button
+              className="stepper-btn"
+              onPointerDown={() => startHold(Number(smallestBill))}
+              onPointerUp={stopHold}
+              onPointerLeave={stopHold}
+            >+</button>
           </div>
         </div>
 

@@ -75,21 +75,36 @@
 .row-value { color: #fff; font-weight: 600; font-size: 1.05rem; }
 .row-empty { font-size: 1.2rem; }
 
-/* Pot input */
-.pot-input {
-  -webkit-appearance: none;
-  appearance: none;
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 4px;
-  color: #fff;
-  font-size: 1.1rem;
-  text-align: right;
-  padding: 5px 10px;
-  width: 130px;
-  outline: none;
+/* Pot stepper */
+.stepper {
+  display: flex;
+  align-items: stretch;
+  background: rgba(0,0,0,0.25);
 }
-.pot-input:focus { background: rgba(255,255,255,0.2); border-color: rgba(100,180,255,0.5); }
+.stepper-btn {
+  background: rgba(255,255,255,0.06);
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  width: 72px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.1s;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.stepper-btn:active { background: rgba(100,180,255,0.2); }
+.stepper-value {
+  flex: 1;
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #fff;
+  padding: 22px 0;
+  letter-spacing: -0.5px;
+}
 
 /* Segments */
 .segment {
@@ -139,10 +154,3 @@
   text-align: center;
 }
 .footer a { color: rgba(100,180,255,0.7); }
-
-.pot-input::-webkit-inner-spin-button,
-.pot-input::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-.pot-input[type=number] { -moz-appearance: textfield; }
