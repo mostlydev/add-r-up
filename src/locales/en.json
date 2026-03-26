@@ -9,5 +9,17 @@
   "FIFTH": "5th",
   "BILL_SIZE": "Smallest bill",
   "MINIMUM_PRIZE": "Smallest prize",
-  "SAMPLE_RULES": "Sample Rules"
+  "SAMPLE_RULES": "Sample Rules",
+  "RULE_1": "Table buys in for $20, players are issued 550 in chips (3×100, 6×25, 10×10). Blinds start at 10/20.",
+  "RULE_2": "Unlimited re-buys until \"last hand\" for $20 and 550 chips. Cannot re-buy unless completely knocked out.",
+  "RULE_3": "Timer starts at 45 minutes, after which blinds double to 20/40.",
+  "RULE_4": "45 minutes later, blinds increase to 30/60, timer decreases to 30 minutes.",
+  "RULE_5": "Deal goes around the table one more time — this is the \"last hand\" for re-buys.",
+  "RULE_6": "At end of \"last hand\", any player can top-up for $20 and receive 450 chips.",
+  "RULE_7": "A player knocked out during \"last hand\" can re-buy and top-up for $40, getting 1,000 chips.",
+  "RULE_8": "Blinds continue every 30 minutes: 30/60, 40/80, 50/100. No more re-buys.",
+  "RULE_9": "Blinds can optionally freeze at 50/100 for three players, 100/200 for last three, 200/400 for heads-up.",
+  "CONTACT_PRE": "Want to help translate?",
+  "CONTACT_LINK": "Send an email",
+  "CONTACT_POST": "with everything you see here and the language it represents."
 }
