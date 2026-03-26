@@ -21,17 +21,21 @@ export default function App() {
   // Rules sheet
   const [rulesOpen, setRulesOpen] = useState(false)
 
-  // Font size (3 steps: 1, 1.2, 1.45)
-  const FONT_STEPS = [1, 1.2, 1.45]
+  // Font size (3 steps)
+  const FONT_STEPS = 3
+  const applyFontStep = (step: number) => {
+    document.documentElement.setAttribute('data-font-step', String(step))
+    return step
+  }
   const [fontStep, setFontStep] = useState(() => {
     const s = parseInt(localStorage.getItem('fontStep') ?? '0', 10)
-    return isNaN(s) ? 0 : Math.min(Math.max(s, 0), FONT_STEPS.length - 1)
+    return applyFontStep(isNaN(s) ? 0 : Math.min(Math.max(s, 0), FONT_STEPS - 1))
   })
   const changeFontStep = (delta: number) => {
     setFontStep(s => {
-      const next = Math.min(Math.max(s + delta, 0), FONT_STEPS.length - 1)
+      const next = Math.min(Math.max(s + delta, 0), FONT_STEPS - 1)
       localStorage.setItem('fontStep', String(next))
-      return next
+      return applyFontStep(next)
     })
   }
 
@@ -82,7 +86,7 @@ export default function App() {
         <img src={`${base}assets/imgs/logo.png`} alt="Add'r'Up" />
       </nav>
 
-      <div className="content" style={{ fontSize: `${FONT_STEPS[fontStep]}rem` }}>
+      <div className="content">
         {/* Pot size */}
         <div className="section">
           <div className="section-header">{t('COUNT')}</div>
@@ -163,7 +167,7 @@ export default function App() {
         <span>&copy; 2017 – {new Date().getFullYear()} <a href="https://mostlydev.com">mostlydev.com</a></span>
         <div className="font-size-btns">
           <button className="font-size-btn" onClick={() => changeFontStep(-1)} disabled={fontStep === 0}>A−</button>
-          <button className="font-size-btn" onClick={() => changeFontStep(1)} disabled={fontStep === FONT_STEPS.length - 1}>A+</button>
+          <button className="font-size-btn" onClick={() => changeFontStep(1)} disabled={fontStep === FONT_STEPS - 1}>A+</button>
         </div>
       </footer>
 

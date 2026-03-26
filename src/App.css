@@ -1,5 +1,8 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+html[data-font-step="1"] { font-size: 20px; }
+html[data-font-step="2"] { font-size: 24px; }
+
 .app {
   position: fixed;
   inset: 0;
@@ -18,6 +21,7 @@
   display: flex;
   align-items: center;
 }
+.navbar { justify-content: center; }
 .navbar img { height: 40px; position: relative; top: 2px; }
 
 /* Content */
