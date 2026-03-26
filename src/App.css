@@ -1,7 +1,12 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
 .app {
-  min-height: 100dvh;
+  height: 100%;
   background: #1a1a2e url('/assets/imgs/background.jpg') right top / cover no-repeat;
   color: #eee;
   display: flex;
@@ -20,7 +25,12 @@
 .navbar img { height: 40px; position: relative; top: 2px; }
 
 /* Content */
-.content { flex: 1; padding-bottom: 16px; }
+.content {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 16px;
+}
 
 /* Language picker */
 .lang-picker {
