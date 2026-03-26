@@ -1,4 +1,4 @@
-import { useMemo, useRef } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { calculate } from './calculator'
 import { useTranslation } from './useTranslation'
 import { useSettings, BillSize, MinPrize } from './useSettings'
@@ -17,6 +17,23 @@ const fmt = new Intl.NumberFormat('en-US', {
 export default function App() {
   const { t, lang, setLang, languages } = useTranslation()
   const { pot, setPot, smallestBill, setSmallestBill, minPrize, setMinPrize } = useSettings()
+
+  // Numpad
+  const [numpadOpen, setNumpadOpen] = useState(false)
+  const [numpadStr, setNumpadStr] = useState('')
+
+  const openNumpad = () => { setNumpadStr(String(pot)); setNumpadOpen(true) }
+  const numpadPress = (key: string) => {
+    if (key === '⌫') {
+      setNumpadStr(s => s.slice(0, -1))
+    } else if (key === '✓') {
+      const v = parseInt(numpadStr, 10)
+      if (!isNaN(v) && v >= 0) setPot(v)
+      setNumpadOpen(false)
+    } else {
+      setNumpadStr(s => (s === '0' ? key : s + key))
+    }
+  }
 
   // Stepper hold-to-repeat
   const holdRef = useRef<ReturnType<typeof setInterval> | null>(null)
@@ -57,7 +74,7 @@ export default function App() {
               onPointerUp={stopHold}
               onPointerLeave={stopHold}
             >−</button>
-            <span className="stepper-value">{fmt.format(pot)}</span>
+            <span className="stepper-value" onClick={openNumpad}>{fmt.format(pot)}</span>
             <button
               className="stepper-btn"
               onPointerDown={() => startHold(Number(smallestBill))}
@@ -148,6 +165,27 @@ export default function App() {
       <footer className="footer">
         &copy; 2017 – <a href="https://mostlydev.com">https://mostlydev.com</a>
       </footer>
+
+      {numpadOpen && (
+        <div className="numpad-overlay" onClick={() => setNumpadOpen(false)}>
+          <div className="numpad-sheet" onClick={e => e.stopPropagation()}>
+            <div className="numpad-display">
+              {numpadStr ? fmt.format(parseInt(numpadStr, 10)) : '$0'}
+            </div>
+            <div className="numpad-grid">
+              {['1','2','3','4','5','6','7','8','9','⌫','0','✓'].map(k => (
+                <button
+                  key={k}
+                  className={`numpad-key${k === '✓' ? ' numpad-confirm' : ''}`}
+                  onClick={() => numpadPress(k)}
+                >
+                  {k}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
