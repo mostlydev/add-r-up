@@ -60,10 +60,12 @@ export default function App() {
     [pot, smallestBill, minPrize]
   )
 
+  const base = import.meta.env.BASE_URL
+
   return (
-    <div className="app">
+    <div className="app" style={{ backgroundImage: `url(${base}assets/imgs/background.jpg)`, backgroundPosition: 'right top', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}>
       <nav className="navbar">
-        <img src="/assets/imgs/logo.png" alt="Add'r'Up" />
+        <img src={`${base}assets/imgs/logo.png`} alt="Add'r'Up" />
       </nav>
 
       <div className="content">

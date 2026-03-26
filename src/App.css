@@ -3,7 +3,7 @@
 .app {
   position: fixed;
   inset: 0;
-  background: #1a1a2e url('/assets/imgs/background.jpg') right top / cover no-repeat;
+  background-color: #1a1a2e;
   color: #eee;
   display: flex;
   flex-direction: column;
