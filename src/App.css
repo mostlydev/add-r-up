@@ -250,6 +250,22 @@
   padding-bottom: calc(10px + env(safe-area-inset-bottom));
   font-size: 0.78rem;
   color: #777;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .footer a { color: rgba(100,180,255,0.7); }
+.font-size-btns { display: flex; gap: 6px; }
+.font-size-btn {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #777;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.font-size-btn:active { color: #ccc; border-color: rgba(255,255,255,0.4); }
+.font-size-btn:disabled { opacity: 0.25; cursor: default; }
