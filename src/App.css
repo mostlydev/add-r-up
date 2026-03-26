@@ -45,6 +45,7 @@ html[data-font-step="2"] { font-size: 24px; }
   text-transform: uppercase;
   letter-spacing: 0.09em;
   color: #aaa;
+  text-align: center;
 }
 
 .row {
@@ -247,12 +248,12 @@ html[data-font-step="2"] { font-size: 24px; }
 }
 .rules-list li { margin-bottom: 8px; }
 
-/* Footer */
+/* Footer — fixed size, never scales with font toggle */
 .footer {
   background: rgba(0,0,0,0.7);
   padding: 10px 16px;
   padding-bottom: calc(10px + env(safe-area-inset-bottom));
-  font-size: 0.78rem;
+  font-size: 12px;
   color: #777;
   display: flex;
   align-items: center;
@@ -264,7 +265,7 @@ html[data-font-step="2"] { font-size: 24px; }
   background: none;
   border: 1px solid rgba(255,255,255,0.15);
   color: #777;
-  font-size: 0.72rem;
+  font-size: 11px;
   font-weight: 700;
   padding: 3px 8px;
   border-radius: 4px;
